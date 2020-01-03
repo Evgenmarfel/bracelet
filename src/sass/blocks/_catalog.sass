@@ -34,6 +34,13 @@
             border: none
     &__content
         margin-top: 60px
+        display: none
+        justify-content: space-between
+        flex-wrap: wrap
+        &_activ
+            display: flex
+        &_around
+            justify-content: space-around
     &-item
         position: relative
         width: 300px
@@ -41,6 +48,7 @@
         border: solid 2px #e8e8e8
         padding: 20px 20px 26px 20px
         overflow: hidden
+        margin-bottom: 20px
         &__img
             display: block
             margin: 0 auto
@@ -61,6 +69,20 @@
             text-align: center
             color: $text_color
         &__linck
+            display: block
+            font-size: 14px
+            font-weight: 500
+            text-align: center
+            color: $color
+            text-transform: uppercase
+            text-decoration: underline
+            &:hover
+                color: $hover
+        &__back
+            position: absolute
+            bottom: 0
+            left: 50%
+            transform: translateX(calc(-50% - 21px))
             display: block
             font-size: 14px
             font-weight: 500
