@@ -50,10 +50,64 @@ $(document).ready(function(){
 
     $('.button_card').each(function(i) {
         $(this).on('click', function() {
-            $('#order, .modal__descr').text($('.catalog-item__subtitle').eq(i).text());
+            $('#order .modal__descr').text($('.catalog-item__subtitle').eq(i).text());
             $('.overlay, #order').fadeIn('slow');
         })
     });
+
+    
+    function validForm(form) {
+        $(form).validate({
+            rules: {
+                // simple rule, converted to {required:true}
+                name: {
+                    required: true,
+                    minlength: 2
+                },
+                phone: "required",
+                // compound rule
+                mail: {
+                  required: true,
+                  email: true
+                }
+              },
+              messages: {
+                name: {
+                    required: "Введи настоящее имя ",
+                    minlength: jQuery.validator.format("Имя должно быть длинее {0} символов")
+                },
+                phone: "Чел, так дела не пойдут",
+                mail: {
+                  required: "Почта должна быть активная",
+                  email: "Не играй со мной, вводи настоящую почту формата: name@mail.com"
+                }
+              }
+        });
+
+    };
+    validForm('#order form');
+    validForm('#consultation-form');
+    validForm('#consultation form');
+
+    $('input [name=phone]').mask("+7(999)99-999-99");
+
+    $('form').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "mailer/samrt.php",
+            data: $(this).serialize()
+        }).done(function() {
+            $(this).find("input").val("");
+
+
+            $('form').trigget('reset');
+
+        });
+        return false;
+    })
+
+
 
   });
 
